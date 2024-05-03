@@ -21,7 +21,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 50vh;
+            height: 55vh;
             font-family: Arial, sans-serif;
             box-shadow: 0 0  10px rgb(0, 0, 0);
             padding: auto;
@@ -84,15 +84,20 @@
     border-radius: 50px;
     background-color: lightgreen;
 }
+.question{
+    font-size: 1.5rem;
+margin-bottom: 1rem;
+text-align: center;
+}
   </style>
 </head>
 <body>
   <div id="question-container" class="que">
     <div class="heart"></div>
-    <b><p id="question" ></p></b>
+    <b><p id="question" class="question"></p></b>
     <button id="le" class="w">Why?</button>
     <hr>
-    <p id="answer"></p>
+    <p id="answer" class="question"></p>
     <button id="next" style="display:none;" class="w">Next</button>
   </div>
 
