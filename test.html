@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Random Question Generator</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body{
+        display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: rgb(241, 241, 161);
+    }
+    .que{
+        background-color: rgba(247, 0, 255, 0.307);
+        height: 50vh;
+        width: 40vb;
+        border-radius: 50px;
+        padding: 1%;
+        box-shadow: 0 0 30px rgb(0, 0, 0);
+        
+    }
+    .heart {
+    width: 100px;
+    height: 100px;
+    background: red;
+    transform: rotate(-45deg);
+    box-shadow: -10px 10px 120px red;
+    animation: heart 0.6s linear infinite;
+    position: relative;
+    margin-bottom: 80px;
+    margin-left: 35%;
+    margin-top: 10%;
+
+    
+    
+}
+@keyframes heart {
+    0% {
+        transform: rotate(-45deg) scale(1.07);
+    }
+    100% {
+        transform: rotate(-45deg) scale(1.0);
+    }
+    100% {
+        transform: rotate(-45deg) scale(0.8);
+    }
+    
+}
+.heart::before {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: red;
+    top: -50%;
+    border-radius: 60px;
+    box-shadow: -10px 10px 120px red;
+}
+.heart::after {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: red;
+    right: -50%;
+    border-radius: 60px;
+    box-shadow: -10px 10px 120px red;
+}
+.w{
+    background-color: rgb(224, 161, 224);
+    border-radius: 20%;
+    color: black;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.155);
+}
+  </style>
+</head>
+<body>
+  <div id="question-container" class="que">
+    <div class="heart"></div>
+    <b><p id="question" ></p></b>
+    <button id="le" class="w">Why?</button>
+    <hr>
+    <p id="answer"></p>
+    <button id="next" style="display:none;" class="w">Next</button>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      // Define your questions and answers in an array
+      const questions = [
+        {
+          question: "land?",
+          answer: "lund"
+        },
+        {
+          question: "nitin",
+          answer: "chuiya"
+        },
+        {
+    question: "Are you a variable?",
+    answer: "Because you’re always on my mind."
+  },
+  {
+    question: "Are you a compiler?",
+    answer: "Because you make my heart skip a beat."
+  },
+  {
+    question: "Are you a semicolon?",
+    answer: "Because without you, my life feels incomplete."
+  },
+  {
+    question: "Are you a loop?",
+    answer: "Because I can't seem to escape your charm."
+  },
+  {
+    question: "Are you a function?",
+    answer: "Because you complete me in ways I never knew I needed."
+  },
+  {
+    question: "Are you an array?",
+    answer: "Because you've got a lot of dimensions to explore."
+  },
+  {
+    question: "Are you a comment?",
+    answer: "Because you make my code readable."
+  },
+  {
+    question: "Are you a class?",
+    answer: "Because you’ve got all the attributes I admire."
+  },
+  {
+    question: "Are you an algorithm?",
+    answer: "Because you've optimized my heart."
+  },
+  {
+    question: "Are you a recursive function?",
+    answer: "Because every time I try to get over you, I end up calling you again."
+  },
+  {
+    question: "Are you an API?",
+    answer: "Because you provide the perfect interface to my emotions."
+  },
+  {
+    question: "Are you a binary file?",
+    answer: "Because I can't seem to decode your signals."
+  },
+  {
+    question: "Are you an exception?",
+    answer: "Because you make my heart crash and burn."
+  },
+  {
+    question: "Are you a database?",
+    answer: "Because you’re the repository of all my desires."
+  },
+  {
+    question: "Are you a bitmask?",
+    answer: "Because you've captured every bit of my attention."
+  },
+  {
+    question: "Are you an event handler?",
+    answer: "Because you always know how to handle me."
+  },
+  {
+    question: "Are you a boolean?",
+    answer: "Because you’re true in every sense of the word."
+  },
+  {
+    question: "Are you an iterator?",
+    answer: "Because I never want our journey together to end."
+  },
+  {
+    question: "Are you a deadlock?",
+    answer: "Because every time I’m with you, time stands still."
+  },
+  {
+    question: "Are you a mutex?",
+    answer: "Because you've locked down my heart."
+  },
+  {
+    question: "Are you a promise?",
+    answer: "Because you make me believe in a better future."
+  },
+  {
+    question: "Are you a socket?",
+    answer: "Because I feel a strong connection whenever I’m near you."
+  },
+  {
+    question: "Are you a timestamp?",
+    answer: "Because every moment with you feels timeless."
+  },
+  {
+    question: "Are you a unit test?",
+    answer: "Because you’re always there to validate my feelings."
+  },
+  {
+    question: "Are you a hash function?",
+    answer: "Because you’ve encrypted yourself deep into my heart."
+  },
+  {
+    question: "Are you a pointer?",
+    answer: "Because you always point me in the right direction."
+  },
+  {
+    question: "Are you a class member?",
+    answer: "Because you hold the key to my heart's access."
+  },
+  {
+    question: "Are you a merge conflict?",
+    answer: "Because every time I think of you, I can't decide what to do."
+  },
+  {
+    question: "Are you a boolean operator?",
+    answer: "Because together, we make quite the logical pair."
+  },
+  {
+    question: "Are you a semaphore?",
+    answer: "Because you always signal the start of something special."
+  },
+  {
+    question: "Are you a packet?",
+    answer: "Because you always carry the message straight to my heart."
+  },
+  {
+    question: "Are you a deadlock?",
+    answer: "Because whenever I'm around you, I can't seem to move forward."
+  },
+  {
+    question: "Are you a compiler error?",
+    answer: "Because every time I try to express my feelings for you, something goes wrong."
+  },
+  {
+    question: "Are you a GUI?",
+    answer: "Because you make my interface user-friendly."
+  },
+  {
+    question: "Are you a singleton?",
+    answer: "Because you're the only one I need in my life."
+  },
+  {
+    question: "Are you a garbage collector?",
+    answer: "Because you've swept me off my feet."
+  },
+  {
+    question: "Are you a cloud service?",
+    answer: "Because you make my heart soar to new heights."
+  },
+  {
+    question: "Are you a pointer to a pointer?",
+    answer: "Because you've doubled the depth of my affection."
+  },
+  {
+    question: "Are you a static variable?",
+    answer: "Because you remain constant in my ever-changing world."
+  },
+  {
+    question: "Are you an anonymous function?",
+    answer: "Because you're a mystery that I want to solve."
+  },
+  {
+    question: "Are you a boolean expression?",
+    answer: "Because you always evaluate to true in my heart."
+  },
+  {
+    question: "Are you a bit shift?",
+    answer: "Because you've shifted my world in the best way possible."
+  },
+  {
+    question: "Are you a parallel process?",
+    answer: "Because you multitask your way into my thoughts."
+  },
+  {
+    question: "Are you a callback function?",
+    answer: "Because you always know how to respond to my emotions."
+  },
+  {
+    question: "Are you a cloud database?",
+    answer: "Because you store all my memories and dreams."
+  },
+  {
+    question: "Are you a network protocol?",
+    answer: "Because you facilitate seamless communication between us."
+  },
+  {
+    question: "Are you a memory leak?",
+    answer: "Because I can't seem to forget about you."
+  },
+  {
+    question: "Are you a bit mask?",
+    answer: "Because you've masked your way into my soul."
+  },
+  {
+    question: "Are you a software update?",
+    answer: "Because you bring new features to my life every day."
+  },
+  {
+    question: "Are you a recursive algorithm?",
+    answer: "Because every time I'm with you, I want more."
+  },
+  {
+    question: "Are you a break statement?",
+    answer: "Because you've broken through all my defenses."
+  },
+  {
+    question: "Are you a blockchain?",
+    answer: "Because you’ve securely linked yourself to my heart."
+  },
+  {
+    question: "Are you a shell script?",
+    answer: "Because you execute all the right commands in my life."
+  },
+  {
+    question: "Are you a commit message?",
+    answer: "Because with you, every moment feels significant."
+  },
+       
+        // Add more questions and answers here
+      ];
+
+      // Function to shuffle the array
+      function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    // Initialize a variable to keep track of the current question index
+    let currentQuestionIndex = 0;
+
+    // Function to display the current question and answer
+    function displayQuestionAndAnswer() {
+      shuffle(questions); // Shuffle the questions array
+      const currentQuestion = questions[currentQuestionIndex];
+      $("#question").text(currentQuestion.question);
+      $("#answer").text("");
+      $("#next").hide();
+    }
+
+    // Function to show the answer to the current question
+    function showAnswer() {
+      const currentQuestion = questions[currentQuestionIndex];
+      $("#answer").text(currentQuestion.answer);
+      $("#le").hide();
+      $("#next").show();
+    }
+
+    // Function to move to the next question
+    function nextQuestion() {
+      currentQuestionIndex++;
+      if (currentQuestionIndex >= questions.length) {
+        currentQuestionIndex = 0;
+      }
+      displayQuestionAndAnswer();
+      $("#le").show();
+      $("#next").hide();
+    }
+
+    // Display the first question and answer when the page loads
+    displayQuestionAndAnswer();
+
+    // Add an event listener to the "Show Answer" button
+    $("#le").click(function() {
+      showAnswer();
+    });
+
+    // Add an event listener to the "Next Question" button
+    $("#next").click(function() {
+      nextQuestion();
+    });
+  });
+  </script>
+</body>
+</html>
